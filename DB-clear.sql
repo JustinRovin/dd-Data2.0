@@ -1,0 +1,31 @@
+USE digitaldemocracy;
+SET foreign_key_checks = 0;
+
+DROP TABLE servesOn;
+DROP TABLE Bill; 
+DROP TABLE Hearing; 
+DROP TABLE JobSnapshot; 
+DROP TABLE Action;  
+DROP TABLE Video; 
+DROP TABLE Video_ttml; 
+DROP TABLE BillDiscussion;
+DROP TABLE Committee; 
+DROP TABLE Lobbyist;
+DROP TABLE Term;
+DROP TABLE Legislator;
+DROP TABLE Person;
+DROP TABLE Motion;
+DROP TABLE votesOn;
+DROP TABLE BillVersion;
+DROP TABLE authors;
+DROP TABLE attends;
+DROP TABLE Utterance;
+DROP TABLE currentUtterance;
+DROP TABLE join_utrtag;
+DROP TABLE Mention;
+DROP TABLE TT_Editor;
+DROP TABLE TT_Task;
+DROP TABLE TT_TaskCompletion;
+DROP TABLE user;
+
+SET foreign_key_checks = 1;
