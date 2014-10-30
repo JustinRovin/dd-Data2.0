@@ -362,7 +362,7 @@ CREATE TABLE IF NOT EXISTS LobbyingFirm(
 );
 
 --  ALTER TABLE !!!!!
-CREATE TABLE Lobbyist(
+CREATE TABLE IF NOT EXISTS Lobbyist(
    pid INTEGER REFERENCES Person(pid),   -- added
    -- FILER_NAML VARCHAR(50),               modified, needs to be same as Person.last
    -- FILER_NAMF VARCHAR(50),               modified, needs to be same as Person.first  
@@ -370,13 +370,13 @@ CREATE TABLE Lobbyist(
    PRIMARY KEY (pid)                    -- added
 );
 
-CREATE TABLE LobbyistEmployer(
+CREATE TABLE IF NOT EXISTS LobbyistEmployer(
    filer_naml VARCHAR(200),
    filer_id VARCHAR(9) PRIMARY KEY,  -- modified (PK)
    coalition TINYINT(1)
 );
 
-CREATE TABLE LobbyistEmployment(
+CREATE TABLE IF NOT EXISTS LobbyistEmployment(
    pid INT  REFERENCES  Lobbyist(pid),                         -- modified (FK)
    sender_id VARCHAR(9) REFERENCES LobbyingFirm(filer_id), -- modified (FK)
    rpt_date DATE,
@@ -389,19 +389,19 @@ CREATE TABLE LobbyistEmployment(
 -- Structure same as LOBBYIST_EMPLOYED_BY_LOBBYING_FIRM, 
 -- but the SENDER_ID is a Foreign Key onto LOBBYIST_EMPLOYER
 
-CREATE TABLE LobbyistDirectEmployment(
+CREATE TABLE IF NOT EXISTS LobbyistDirectEmployment(
    pid INT  REFERENCES  Lobbyist(pid),                         
    sender_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id),
    rpt_date DATE,
    ls_beg_yr INTEGER,    -- modified (INT)
-   ls_end_yr INTEGER     -- modified (INT)
+   ls_end_yr INTEGER,     -- modified (INT)
    PRIMARY KEY (pid, sender_id, rpt_date, ls_end_yr) -- modified (May 21) 
 );
 
 -- end new table
 
 
-CREATE TABLE LobbyingContracts(
+CREATE TABLE IF NOT EXISTS LobbyingContracts(
    filer_id VARCHAR(9) REFERENCES LobbyingFirm(filer_id),     -- modified (FK)
    sender_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id), -- modified (FK)
    rpt_date DATE,
@@ -410,7 +410,7 @@ CREATE TABLE LobbyingContracts(
    PRIMARY KEY (filer_id, sender_id, rpt_date) -- modified (May 21) 
 );
 
-CREATE TABLE LobbyistRepresentation(
+CREATE TABLE IF NOT EXISTS LobbyistRepresentation(
    pid INTEGER REFERENCES Lobbyist(pid),                  -- modified
    le_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id), -- modified (renamed)
    hearing_date DATE,                                       -- modified (renamed)
@@ -418,7 +418,7 @@ CREATE TABLE LobbyistRepresentation(
    PRIMARY KEY(pid, le_id, hearing_id)                 -- added
 );
 
-CREATE TABLE GeneralPublic(
+CREATE TABLE IF NOT EXISTS GeneralPublic(
    pid INTEGER REFERENCES Person(pid),   -- added
    employer VARCHAR(256),
    position VARCHAR(100),                
@@ -426,7 +426,7 @@ CREATE TABLE GeneralPublic(
    PRIMARY KEY (pid)                    
 );
 
-CREATE TABLE LegislativeAuthorStaff(
+CREATE TABLE IF NOT EXISTS LegislativeAuthorStaff(
    pid INTEGER REFERENCES Person(pid),   -- added
    legislator INTEGER REFERENCES Person(pid), -- this is the legislator 
    position VARCHAR(100),                
@@ -434,7 +434,7 @@ CREATE TABLE LegislativeAuthorStaff(
    PRIMARY KEY (pid)                    -- added
 );
 
-CREATE TABLE CommitteeStaff(
+CREATE TABLE IF NOT EXISTS CommitteeStaff(
    pid INTEGER REFERENCES Person(pid),   -- added
    cid    INTEGER(3) REFERENCES Committee(cid),
    house  ENUM('Assembly', 'Senate') NOT NULL,            
@@ -442,13 +442,13 @@ CREATE TABLE CommitteeStaff(
    PRIMARY KEY (pid)                    -- added
 );
 
-CREATE TABLE Analyst(
+CREATE TABLE IF NOT EXISTS Analyst(
    pid INTEGER REFERENCES Person(pid),   -- added            
 
    PRIMARY KEY (pid)                    -- added
 );
 
-CREATE TABLE StateAgencyRep(
+CREATE TABLE IF NOT EXISTS StateAgencyRep(
    pid INTEGER REFERENCES Person(pid),   -- added
    employer VARCHAR(256),
    position VARCHAR(100),               
