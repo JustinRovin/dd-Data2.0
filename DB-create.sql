@@ -363,10 +363,10 @@ CREATE TABLE IF NOT EXISTS LobbyingFirm(
 
 --  ALTER TABLE !!!!!
 CREATE TABLE Lobbyist(
-   pid INTEGER REFERENCES Person(pid)   -- added
-   -- FILER_NAML VARCHAR(50),              -- modified, needs to be same as Person.last
-   -- FILER_NAMF VARCHAR(50),              -- modified, needs to be same as Person.first  
-   filer_id VARCHAR(9)  UNIQUE,         -- modified   
+   pid INTEGER REFERENCES Person(pid),   -- added
+   -- FILER_NAML VARCHAR(50),               modified, needs to be same as Person.last
+   -- FILER_NAMF VARCHAR(50),               modified, needs to be same as Person.first  
+   filer_id VARCHAR(9) UNIQUE,         -- modified   
    PRIMARY KEY (pid)                    -- added
 );
 
@@ -381,7 +381,7 @@ CREATE TABLE LobbyistEmployment(
    sender_id VARCHAR(9) REFERENCES LobbyingFirm(filer_id), -- modified (FK)
    rpt_date DATE,
    ls_beg_yr INTEGER,    -- modified (INT)
-   ls_end_yr INTEGER     -- modified (INT)
+   ls_end_yr INTEGER,    -- modified (INT)
    PRIMARY KEY (pid, sender_id, rpt_date, ls_end_yr) -- modified (May 21) 
 );
 
@@ -406,7 +406,7 @@ CREATE TABLE LobbyingContracts(
    sender_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id), -- modified (FK)
    rpt_date DATE,
    ls_beg_yr INTEGER,    -- modified (INT)
-   ls_end_yr INTEGER     -- modified (INT)
+   ls_end_yr INTEGER,     -- modified (INT)
    PRIMARY KEY (filer_id sender_id, rpt_date) -- modified (May 21) 
 );
 
@@ -419,7 +419,7 @@ CREATE TABLE LobbyistRepresentation(
 );
 
 CREATE TABLE GeneralPublic(
-   pid INTEGER REFERENCES Person(pid)   -- added
+   pid INTEGER REFERENCES Person(pid),   -- added
    employer VARCHAR(256),
    position VARCHAR(100),                
 
@@ -427,7 +427,7 @@ CREATE TABLE GeneralPublic(
 );
 
 CREATE TABLE LegislativeAuthorStaff(
-   pid INTEGER REFERENCES Person(pid)   -- added
+   pid INTEGER REFERENCES Person(pid),   -- added
    legislator INTEGER REFERENCES Person(pid), -- this is the legislator 
    position VARCHAR(100),                
 
@@ -435,7 +435,7 @@ CREATE TABLE LegislativeAuthorStaff(
 );
 
 CREATE TABLE CommitteeStaff(
-   pid INTEGER REFERENCES Person(pid)   -- added
+   pid INTEGER REFERENCES Person(pid),   -- added
    cid    INTEGER(3) REFERENCES Committee(cid),
    house  ENUM('Assembly', 'Senate') NOT NULL,            
 
@@ -443,13 +443,13 @@ CREATE TABLE CommitteeStaff(
 );
 
 CREATE TABLE Analyst(
-   pid INTEGER REFERENCES Person(pid)   -- added            
+   pid INTEGER REFERENCES Person(pid),   -- added            
 
    PRIMARY KEY (pid)                    -- added
 );
 
 CREATE TABLE StateAgencyRep(
-   pid INTEGER REFERENCES Person(pid)   -- added
+   pid INTEGER REFERENCES Person(pid),   -- added
    employer VARCHAR(256),
    position VARCHAR(100),               
 
