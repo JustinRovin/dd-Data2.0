@@ -407,15 +407,15 @@ CREATE TABLE LobbyingContracts(
    rpt_date DATE,
    ls_beg_yr INTEGER,    -- modified (INT)
    ls_end_yr INTEGER,     -- modified (INT)
-   PRIMARY KEY (filer_id sender_id, rpt_date) -- modified (May 21) 
+   PRIMARY KEY (filer_id, sender_id, rpt_date) -- modified (May 21) 
 );
 
 CREATE TABLE LobbyistRepresentation(
-   pid   INTEGER REFERENCES Lobbyist(pid),                  -- modified
+   pid INTEGER REFERENCES Lobbyist(pid),                  -- modified
    le_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id), -- modified (renamed)
    hearing_date DATE,                                       -- modified (renamed)
    hearing_id INTEGER REFERENCES Hearing(hid),              -- added
-   PRIMARY KEY(filer_id, le_id, hearing_id)                 -- added
+   PRIMARY KEY(pid, le_id, hearing_id)                 -- added
 );
 
 CREATE TABLE GeneralPublic(
