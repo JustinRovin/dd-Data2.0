@@ -271,7 +271,7 @@ CREATE TABLE IF NOT EXISTS tag (
 ENGINE = INNODB
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
--- join table for Uterrance -->>> Tag
+-- join table for Uterrance >>> Tag
 CREATE TABLE IF NOT EXISTS join_utrtag (
    uid INTEGER,
    tid INTEGER,
