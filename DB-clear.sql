@@ -15,7 +15,7 @@ DROP TABLE LobbyistEmployer;
 DROP TABLE LobbyistEmployment;
 DROP TABLE LobbyistDirectEmployment;
 DROP TABLE LobbyingContracts;
-DROP TABLE LobbyistRepresentation
+DROP TABLE LobbyistRepresentation;
 DROP TABLE LegislativeAuthorStaff;
 DROP TABLE LobbyingFirm;
 DROP TABLE CommitteeStaff;
@@ -30,8 +30,8 @@ DROP TABLE votesOn;
 DROP TABLE BillVersion;
 DROP TABLE authors;
 DROP TABLE attends;
-DROP TABLE Utterance;
 DROP TABLE currentUtterance;
+DROP TABLE Utterance;
 DROP TABLE join_utrtag;
 DROP TABLE Mention;
 DROP TABLE TT_Editor;
