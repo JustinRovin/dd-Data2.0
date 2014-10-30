@@ -30,13 +30,14 @@ DROP TABLE votesOn;
 DROP TABLE BillVersion;
 DROP TABLE authors;
 DROP TABLE attends;
-DROP TABLE currentUtterance;
+DROP VIEW currentUtterance;
 DROP TABLE Utterance;
 DROP TABLE join_utrtag;
 DROP TABLE Mention;
 DROP TABLE TT_Editor;
 DROP TABLE TT_Task;
 DROP TABLE TT_TaskCompletion;
+DROP TABLE tag;
 DROP TABLE user;
 
 SET foreign_key_checks = 1;
