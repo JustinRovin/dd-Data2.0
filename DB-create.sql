@@ -1,10 +1,10 @@
-USE digitaldemocracy;
+USE tester;
 
 CREATE TABLE IF NOT EXISTS Person (
    pid    INTEGER AUTO_INCREMENT,
    last   VARCHAR(50) NOT NULL,
    first  VARCHAR(50) NOT NULL,
-   --description VARCHAR(1000), deprecated, moved ot legislator profile
+   -- description VARCHAR(1000), deprecated, moved ot legislator profile
 
    PRIMARY KEY (pid)
 )
@@ -26,15 +26,15 @@ CHARACTER SET utf8 COLLATE utf8_general_ci;
 -- we can probably remove this table and roll into a "role" field in Person
 -- alternatively, we can make it (pid, jobhistory) and put client information here
 
---CREATE TABLE IF NOT EXISTS Lobbyist (
+-- CREATE TABLE IF NOT EXISTS Lobbyist (
 --   pid    INTEGER,
 
 --   PRIMARY KEY (pid),
 --   FOREIGN KEY (pid) REFERENCES Person(pid)
---)
+-- )
 
---ENGINE = INNODB
---CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- ENGINE = INNODB
+-- CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- only Legislators have Terms
 CREATE TABLE IF NOT EXISTS Term (
@@ -297,7 +297,7 @@ CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 -- Transcription Tool Tables
-CREATE TABLE TT_Editor (
+CREATE TABLE IF NOT EXISTS TT_Editor (
    id INTEGER AUTO_INCREMENT , 
    username VARCHAR(50) NOT NULL , 
    password VARCHAR(255) NOT NULL , 
@@ -311,7 +311,7 @@ CREATE TABLE TT_Editor (
 ENGINE = INNODB
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE TT_Task (
+CREATE TABLE IF NOT EXISTS TT_Task (
    tid INTEGER AUTO_INCREMENT ,
    did INTEGER , 
    editor_id INTEGER ,
@@ -331,7 +331,7 @@ CREATE TABLE TT_Task (
 ENGINE = INNODB
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE TT_TaskCompletion (
+CREATE TABLE IF NOT EXISTS TT_TaskCompletion (
    tcid INTEGER AUTO_INCREMENT , 
    tid INTEGER , 
    completion DATE , 
@@ -353,73 +353,73 @@ CREATE TABLE IF NOT EXISTS user (
 ENGINE = INNODB
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE LobbyingFirm(
-   FILER_NAML VARCHAR(200),
-   FILER_ID VARCHAR(9)  PRIMARY KEY,  --- modified  (PK)
-   RPT_DATE DATE,
-   LS_BEG_YR INTEGER,    --- modified (INT)
-   LS_END_YR INTEGER     --- modified (INT)
+CREATE TABLE IF NOT EXISTS LobbyingFirm(
+   filer_naml VARCHAR(200),
+   filer_id VARCHAR(9)  PRIMARY KEY,  -- modified  (PK)
+   rpt_date DATE,
+   ls_beg_yr INTEGER,    -- modified (INT)
+   ls_end_yr INTEGER     -- modified (INT)
 );
 
------  ALTER TABLE !!!!!
+--  ALTER TABLE !!!!!
 CREATE TABLE Lobbyist(
-   pid INTEGER REFERENCES Person(pid)   --- added
-   --FILER_NAML VARCHAR(50),              --- modified, needs to be same as Person.last
-   --FILER_NAMF VARCHAR(50),              --- modified, needs to be same as Person.first  
-   filer_id VARCHAR(9)  UNIQUE,         --- modified   
-   PRIMARY KEY (pid)                    --- added
+   pid INTEGER REFERENCES Person(pid)   -- added
+   -- FILER_NAML VARCHAR(50),              -- modified, needs to be same as Person.last
+   -- FILER_NAMF VARCHAR(50),              -- modified, needs to be same as Person.first  
+   filer_id VARCHAR(9)  UNIQUE,         -- modified   
+   PRIMARY KEY (pid)                    -- added
 );
 
 CREATE TABLE LobbyistEmployer(
-   FILER_NAML VARCHAR(200),
-   FILER_ID VARCHAR(9) PRIMARY KEY,  --- modified (PK)
-   COALITION TINYINT(1)
+   filer_naml VARCHAR(200),
+   filer_id VARCHAR(9) PRIMARY KEY,  -- modified (PK)
+   coalition TINYINT(1)
 );
 
 CREATE TABLE LobbyistEmployment(
-   PID INT  REFERENCES  Lobbyist(PID),                         --- modified (FK)
-   SENDER_ID VARCHAR(9) REFERENCES LobbyingFirm(FILER_ID), --- modified (FK)
-   RPT_DATE DATE,
-   LS_BEG_YR INTEGER,
-   LS_END_YR INTEGER,
-   PRIMARY KEY (PID, SENDER_ID, RPT_DATE, LS_END_YR) --- modified (May 21) 
+   pid INT  REFERENCES  Lobbyist(pid),                         -- modified (FK)
+   sender_id VARCHAR(9) REFERENCES LobbyingFirm(filer_id), -- modified (FK)
+   rpt_date DATE,
+   ls_beg_yr INTEGER,    -- modified (INT)
+   ls_end_yr INTEGER     -- modified (INT)
+   PRIMARY KEY (pid, sender_id, rpt_date, ls_end_yr) -- modified (May 21) 
 );
 
----- NEW TABLE: Lobbyist Employed Directly by Lobbyist Employers 
----- Structure same as LOBBYIST_EMPLOYED_BY_LOBBYING_FIRM, 
----- but the SENDER_ID is a Foreign Key onto LOBBYIST_EMPLOYER
+-- NEW TABLE: Lobbyist Employed Directly by Lobbyist Employers 
+-- Structure same as LOBBYIST_EMPLOYED_BY_LOBBYING_FIRM, 
+-- but the SENDER_ID is a Foreign Key onto LOBBYIST_EMPLOYER
 
 CREATE TABLE LobbyistDirectEmployment(
-   PID INT  REFERENCES  Lobbyist(PID),                         
-   SENDER_ID VARCHAR(9) REFERENCES LobbyistEmployer(FILER_ID),
-   RPT_DATE DATE,
-   LS_BEG_YR INTEGER,
-   LS_END_YR INTEGER,
-   PRIMARY KEY (PID, SENDER_ID, RPT_DATE, LS_END_YR) 
+   pid INT  REFERENCES  Lobbyist(pid),                         
+   sender_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id),
+   rpt_date DATE,
+   ls_beg_yr INTEGER,    -- modified (INT)
+   ls_end_yr INTEGER     -- modified (INT)
+   PRIMARY KEY (pid, sender_id, rpt_date, ls_end_yr) -- modified (May 21) 
 );
 
---------- end new table
+-- end new table
 
 
 CREATE TABLE LobbyingContracts(
-   FILER_ID VARCHAR(9) REFERENCES LobbyingFirm(FILER_ID),     --- modified (FK)
-   SENDER_ID VARCHAR(9) REFERENCES LobbyistEmployer(FILER_ID), --- modified (FK)
-   RPT_DATE DATE,
-   LS_BEG_YR INTEGER,   --- modified
-   LS_END_YR INTEGER,   --- modified
-   PRIMARY KEY(FILER_ID, SENDER_ID, RPT_DATE)  --- added
+   filer_id VARCHAR(9) REFERENCES LobbyingFirm(filer_id),     -- modified (FK)
+   sender_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id), -- modified (FK)
+   rpt_date DATE,
+   ls_beg_yr INTEGER,    -- modified (INT)
+   ls_end_yr INTEGER     -- modified (INT)
+   PRIMARY KEY (filer_id sender_id, rpt_date) -- modified (May 21) 
 );
 
 CREATE TABLE LobbyistRepresentation(
-   PID   INTEGER REFERENCES Lobbyist(PID),                  --- modified
-   LE_ID VARCHAR(9) REFERENCES LobbyistEmployer(FILER_ID), --- modified (renamed)
-   HEARING_DATE DATE,                                       --- modified (renamed)
-   HEARING_ID INTEGER REFERENCES Hearing(HID),              --- added
-   PRIMARY KEY(FILER_ID, LE_ID, HEARING_ID)                 --- added
+   pid   INTEGER REFERENCES Lobbyist(pid),                  -- modified
+   le_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id), -- modified (renamed)
+   hearing_date DATE,                                       -- modified (renamed)
+   hearing_id INTEGER REFERENCES Hearing(hid),              -- added
+   PRIMARY KEY(filer_id, le_id, hearing_id)                 -- added
 );
 
 CREATE TABLE GeneralPublic(
-   pid INTEGER REFERENCES Person(pid)   --- added
+   pid INTEGER REFERENCES Person(pid)   -- added
    employer VARCHAR(256),
    position VARCHAR(100),                
 
@@ -427,31 +427,31 @@ CREATE TABLE GeneralPublic(
 );
 
 CREATE TABLE LegislativeAuthorStaff(
-   pid INTEGER REFERENCES Person(pid)   --- added
-   legislator INTEGER REFERENCES Person(pid), --this is the legislator 
+   pid INTEGER REFERENCES Person(pid)   -- added
+   legislator INTEGER REFERENCES Person(pid), -- this is the legislator 
    position VARCHAR(100),                
 
-   PRIMARY KEY (pid)                    --- added
+   PRIMARY KEY (pid)                    -- added
 );
 
 CREATE TABLE CommitteeStaff(
-   pid INTEGER REFERENCES Person(pid)   --- added
+   pid INTEGER REFERENCES Person(pid)   -- added
    cid    INTEGER(3) REFERENCES Committee(cid),
    house  ENUM('Assembly', 'Senate') NOT NULL,            
 
-   PRIMARY KEY (pid)                    --- added
+   PRIMARY KEY (pid)                    -- added
 );
 
 CREATE TABLE Analyst(
-   pid INTEGER REFERENCES Person(pid)   --- added            
+   pid INTEGER REFERENCES Person(pid)   -- added            
 
-   PRIMARY KEY (pid)                    --- added
+   PRIMARY KEY (pid)                    -- added
 );
 
 CREATE TABLE StateAgencyRep(
-   pid INTEGER REFERENCES Person(pid)   --- added
+   pid INTEGER REFERENCES Person(pid)   -- added
    employer VARCHAR(256),
    position VARCHAR(100),               
 
-   PRIMARY KEY (pid)                    --- added
+   PRIMARY KEY (pid)                    -- added
 );
