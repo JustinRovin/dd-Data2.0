@@ -1,4 +1,4 @@
-USE digitaldemocracy;
+USE tester;
 SET foreign_key_checks = 0;
 
 DROP TABLE servesOn;
@@ -11,6 +11,17 @@ DROP TABLE Video_ttml;
 DROP TABLE BillDiscussion;
 DROP TABLE Committee; 
 DROP TABLE Lobbyist;
+DROP TABLE LobbyistEmployer;
+DROP TABLE LobbyistEmployment;
+DROP TABLE LobbyistDirectEmployment;
+DROP TABLE LobbyingContracts;
+DROP TABLE LobbyistRepresentation
+DROP TABLE LegislativeAuthorStaff;
+DROP TABLE LobbyingFirm;
+DROP TABLE CommitteeStaff;
+DROP TABLE Analyst;
+DROP TABLE StateAgencyRep;
+DROP TABLE GeneralPublic;
 DROP TABLE Term;
 DROP TABLE Legislator;
 DROP TABLE Person;
