@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS Person (
    pid    INTEGER AUTO_INCREMENT,
    last   VARCHAR(50) NOT NULL,
    first  VARCHAR(50) NOT NULL,
-   -- description VARCHAR(1000), deprecated, moved ot legislator profile
+   -- description VARCHAR(1000), deprecated, moved to legislator profile
 
    PRIMARY KEY (pid)
 )
