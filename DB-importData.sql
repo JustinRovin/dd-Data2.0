@@ -44,12 +44,13 @@ INSERT INTO tester.Video_ttml(vid, ttml)
 SELECT vid, ttml
 FROM digitaldemocracy.Video_ttml;
 
-INSERT INTO tester.BillDiscussion(vid, bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
-SELECT vid, bid, hid, startVideo, startTime, endVideo, endTime, numVideos
-FROM digitaldemocracy.BillDiscussion;
+INSERT INTO tester.BillDiscussion(did, bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
+SELECT bid, bid, hid, startVideo, startTime, endVideo, endTime, numVideos
+FROM digitaldemocracy.BillDiscussion
+ON DUPLICATE KEY UPDATE;
 
-INSERT INTO tester.Motion(pid, mid, vote)
-SELECT pid, mid, vote
+INSERT INTO tester.Motion(mid, bid, date, text)
+SELECT mid, bid, date, text
 FROM digitaldemocracy.Motion;
 
 INSERT INTO tester.votesOn(pid, mid, vote)
