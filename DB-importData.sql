@@ -48,8 +48,10 @@ INSERT INTO tester.Video_ttml(vid, ttml)
 SELECT vid, ttml
 FROM digitaldemocracy.Video_ttml;
 
-INSERT INTO tester.BillDiscussion(did, bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
-SELECT did, bid, hid, startVideo, startTime, endVideo, endTime, numVideos
+SELECT 'BillDiscussion' AS '';
+
+INSERT INTO tester.BillDiscussion(bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
+SELECT bid, hid, startVideo, startTime, endVideo, endTime, numVideos
 FROM digitaldemocracy.BillDiscussion;
 
 INSERT INTO tester.Motion(mid, bid, date, text)
@@ -97,7 +99,3 @@ FROM digitaldemocracy.TT_Task;
 INSERT INTO tester.TT_TaskCompletion(tcid, tid, completion)
 SELECT tcid, tid, completion
 FROM digitaldemocracy.TT_TaskCompletion;
-
-INSERT INTO tester.user(email, name, password, new_user)
-SELECT email, name, password, new_user
-FROM digitaldemocracy.user;
