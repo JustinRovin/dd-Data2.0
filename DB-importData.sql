@@ -1,101 +1,101 @@
-USE tester;
+USE DDDB;
 
-INSERT INTO tester.Person(pid, last, first)
+INSERT INTO DDDB.Person(pid, last, first)
 SELECT pid, last, first
 FROM digitaldemocracy.Person;
 
-INSERT INTO tester.Legislator(description)
+INSERT INTO DDDB.Legislator(description)
 SELECT description
 FROM digitaldemocracy.Person;
 
-INSERT INTO tester.Legislator(pid)
+INSERT INTO DDDB.Legislator(pid)
 SELECT pid
 FROM digitaldemocracy.Legislator;
 
-INSERT INTO tester.Term(pid, year, district, house, party, start, end)
+INSERT INTO DDDB.Term(pid, year, district, house, party, start, end)
 SELECT pid, year, district, house, party, start, end
 FROM digitaldemocracy.Term;
 
-INSERT INTO tester.Committee(cid, house, name)
+INSERT INTO DDDB.Committee(cid, house, name)
 SELECT cid, house, name
 FROM digitaldemocracy.Committee;
 
-INSERT INTO tester.servesOn(pid, year, district, house, cid)
+INSERT INTO DDDB.servesOn(pid, year, district, house, cid)
 SELECT pid, year, district, house, cid
 FROM digitaldemocracy.servesOn;
 
-INSERT INTO tester.Bill(bid, type, number, state, status, house, session)
+INSERT INTO DDDB.Bill(bid, type, number, state, status, house, session)
 SELECT bid, type, number, state, status, house, session
 FROM digitaldemocracy.Bill;
 
-INSERT INTO tester.Hearing(hid, date, cid)
+INSERT INTO DDDB.Hearing(hid, date, cid)
 SELECT hid, date, cid
 FROM digitaldemocracy.Hearing;
 
-INSERT INTO tester.JobSnapshot(pid, hid, role, employer, client)
+INSERT INTO DDDB.JobSnapshot(pid, hid, role, employer, client)
 SELECT pid, hid, role, employer, client
 FROM digitaldemocracy.JobSnapshot;
 
-INSERT INTO tester.Action(bid, date, text)
+INSERT INTO DDDB.Action(bid, date, text)
 SELECT bid, date, text
 FROM digitaldemocracy.Action;
 
-INSERT INTO tester.Video(vid, youtubeId, hid, position, startOffset, duration)
+INSERT INTO DDDB.Video(vid, youtubeId, hid, position, startOffset, duration)
 SELECT vid, youtubeId, hid, position, startOffset, duration
 FROM digitaldemocracy.Video;
 
-INSERT INTO tester.Video_ttml(vid, ttml)
+INSERT INTO DDDB.Video_ttml(vid, ttml)
 SELECT vid, ttml
 FROM digitaldemocracy.Video_ttml;
 
 SELECT 'BillDiscussion' AS '';
 
-INSERT INTO tester.BillDiscussion(bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
+INSERT INTO DDDB.BillDiscussion(bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
 SELECT bid, hid, startVideo, startTime, endVideo, endTime, numVideos
 FROM digitaldemocracy.BillDiscussion;
 
-INSERT INTO tester.Motion(mid, bid, date, text)
+INSERT INTO DDDB.Motion(mid, bid, date, text)
 SELECT mid, bid, date, text
 FROM digitaldemocracy.Motion;
 
-INSERT INTO tester.votesOn(pid, mid, vote)
+INSERT INTO DDDB.votesOn(pid, mid, vote)
 SELECT pid, mid, vote
 FROM digitaldemocracy.votesOn;
 
-INSERT INTO tester.BillVersion(vid, bid, date, state, subject, appropriation, substantive_changes, title, digest, text)
+INSERT INTO DDDB.BillVersion(vid, bid, date, state, subject, appropriation, substantive_changes, title, digest, text)
 SELECT vid, bid, date, state, subject, appropriation, substantive_changes, title, digest, text
 FROM digitaldemocracy.BillVersion;
 
-INSERT INTO tester.authors(pid, bid, vid, contribution)
+INSERT INTO DDDB.authors(pid, bid, vid, contribution)
 SELECT pid, bid, vid, contribution
 FROM digitaldemocracy.authors;
 
-INSERT INTO tester.attends(pid, hid)
+INSERT INTO DDDB.attends(pid, hid)
 SELECT pid, hid
 FROM digitaldemocracy.attends;
 
-INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, current, finalized, type, alignment)
+INSERT INTO DDDB.Utterance(uid, vid, pid, time, endTime, text, current, finalized, type, alignment)
 SELECT uid, vid, pid, time, endTime, text, current, finalized, type, alignment
 FROM digitaldemocracy.Utterance;
 
 CREATE OR REPLACE VIEW currentUtterance AS SELECT uid, vid, pid, time, endTime, text, type, alignment FROM Utterance WHERE current = TRUE AND finalized = TRUE ORDER BY time DESC;
 
-INSERT INTO tester.tag(tid, tag)
+INSERT INTO DDDB.tag(tid, tag)
 SELECT tid, tag
 FROM digitaldemocracy.tag;
 
-INSERT INTO tester.Mention(uid, pid)
+INSERT INTO DDDB.Mention(uid, pid)
 SELECT uid, pid
 FROM digitaldemocracy.Mention;
 
-INSERT INTO tester.TT_Editor(id, username, password, created, active, role)
+INSERT INTO DDDB.TT_Editor(id, username, password, created, active, role)
 SELECT id, username, password, created, active, role
 FROM digitaldemocracy.TT_Editor;
 
-INSERT INTO tester.TT_Task(tid, did, editor_id, name, vid, startTime, endTime, created, assigned, completed)
+INSERT INTO DDDB.TT_Task(tid, did, editor_id, name, vid, startTime, endTime, created, assigned, completed)
 SELECT tid, did, editor_id, name, vid, startTime, endTime, created, assigned, completed
 FROM digitaldemocracy.TT_Task;
 
-INSERT INTO tester.TT_TaskCompletion(tcid, tid, completion)
+INSERT INTO DDDB.TT_TaskCompletion(tcid, tid, completion)
 SELECT tcid, tid, completion
 FROM digitaldemocracy.TT_TaskCompletion;
