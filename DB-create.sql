@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS Utterance (
    alignment ENUM('For', 'Against', 'For_if_amend', 'Against_unless_amend', 'Neutral', 'Indeterminate'),
 
    PRIMARY KEY (uid, current),
-   UNIQUE KEY (vid, pid, current, time, endTime),
+   UNIQUE KEY (vid, pid, current, time),
    FOREIGN KEY (pid) REFERENCES Person(pid),
    FOREIGN KEY (vid) REFERENCES Video(vid)
 )

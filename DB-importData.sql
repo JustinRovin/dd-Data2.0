@@ -74,7 +74,7 @@ INSERT INTO tester.attends(pid, hid)
 SELECT pid, hid
 FROM digitaldemocracy.attends;
 
-INSERT INTO tester.Utterances(uid, vid, pid, time, endTime, text, type, alignment)
+INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, type, alignment)
 SELECT uid, vid, pid, time, endTime, text, type, alignment 
 FROM digitaldemocracy.currentUtterance;
 
