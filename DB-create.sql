@@ -1,4 +1,4 @@
-USE DDDB;
+USE tester;
 
 CREATE TABLE IF NOT EXISTS Person (
    pid    INTEGER AUTO_INCREMENT,
@@ -260,7 +260,10 @@ CREATE TABLE IF NOT EXISTS Utterance (
 ENGINE = INNODB
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE OR REPLACE VIEW currentUtterance AS SELECT uid, vid, pid, time, endTime, text, type, alignment FROM Utterance WHERE current = TRUE AND finalized = TRUE ORDER BY time DESC;
+CREATE OR REPLACE VIEW currentUtterance 
+AS SELECT uid, vid, pid, time, endTime, text, type, alignment 
+FROM Utterance 
+WHERE current = TRUE AND finalized = TRUE ORDER BY time DESC;
 
 -- tag is a keyword. For example, "education", "war on drugs"
 -- can also include abbreviations for locations such as "Cal Poly" for "Cal Poly SLO"
