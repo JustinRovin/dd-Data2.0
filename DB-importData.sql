@@ -8,6 +8,11 @@ INSERT INTO tester.Legislator(pid)
 SELECT pid
 FROM digitaldemocracy.Legislator;
 
+INSERT INTO tester.Legislator(description)
+SELECT description
+FROM digitaldemocracy.Person
+WHERE digitaldemocracy.Person.pid = tester.Legislator.pid;
+
 INSERT INTO tester.Term(pid, year, district, house, party, start, end)
 SELECT pid, year, district, house, party, start, end
 FROM digitaldemocracy.Term;
@@ -46,8 +51,7 @@ FROM digitaldemocracy.Video_ttml;
 
 INSERT INTO tester.BillDiscussion(did, bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
 SELECT bid, bid, hid, startVideo, startTime, endVideo, endTime, numVideos
-FROM digitaldemocracy.BillDiscussion
-ON DUPLICATE KEY UPDATE;
+FROM digitaldemocracy.BillDiscussion;
 
 INSERT INTO tester.Motion(mid, bid, date, text)
 SELECT mid, bid, date, text
@@ -94,3 +98,7 @@ FROM digitaldemocracy.TT_Task;
 INSERT INTO tester.TT_TaskCompletion(tcid, tid, completion)
 SELECT tcid, tid, completion
 FROM digitaldemocracy.TT_TaskCompletion;
+
+INSERT INTO tester.user(email, name, password, new_user)
+SELECT email, name, password, new_user
+FROM digitaldemocracy.user;
