@@ -44,8 +44,8 @@ INSERT INTO tester.Video_ttml(vid, ttml)
 SELECT vid, ttml
 FROM digitaldemocracy.Video_ttml;
 
-INSERT INTO tester.BillDiscussion(did, bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
-SELECT did, bid, hid, startVideo, startTime, endVideo, endTime, numVideos
+INSERT INTO tester.BillDiscussion(vid, bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
+SELECT vid, bid, hid, startVideo, startTime, endVideo, endTime, numVideos
 FROM digitaldemocracy.BillDiscussion;
 
 INSERT INTO tester.Motion(pid, mid, vote)
@@ -68,8 +68,8 @@ INSERT INTO tester.attends(pid, hid)
 SELECT pid, hid
 FROM digitaldemocracy.attends;
 
-INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, current, finalized, tpe, alignment)
-SELECT uid, vid, pid, time, endTime, text, current, finalized, tpe, alignment
+INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, current, finalized, type, alignment)
+SELECT uid, vid, pid, time, endTime, text, current, finalized, type, alignment
 FROM digitaldemocracy.Utterance;
 
 CREATE OR REPLACE VIEW currentUtterance AS SELECT uid, vid, pid, time, endTime, text, type, alignment FROM Utterance WHERE current = TRUE AND finalized = TRUE ORDER BY time DESC;
@@ -77,10 +77,6 @@ CREATE OR REPLACE VIEW currentUtterance AS SELECT uid, vid, pid, time, endTime, 
 INSERT INTO tester.tag(tid, tag)
 SELECT tid, tag
 FROM digitaldemocracy.tag;
-
-INSERT INTO tester.join_utrtag(uid, tid)
-SELECT uid, tid
-FROM digitaldemocracy.join_utrtag;
 
 INSERT INTO tester.Mention(uid, pid)
 SELECT uid, pid
