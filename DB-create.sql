@@ -151,6 +151,7 @@ CREATE TABLE IF NOT EXISTS Video_ttml (
 ENGINE = INNODB
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
+-- examine (without startTime in UNIQUE, duplicate)
 CREATE TABLE IF NOT EXISTS BillDiscussion (
    did         INTEGER AUTO_INCREMENT,
    bid         VARCHAR(20),
@@ -162,7 +163,7 @@ CREATE TABLE IF NOT EXISTS BillDiscussion (
    numVideos   INTEGER(4),
 
    PRIMARY KEY (did),
-   UNIQUE KEY (bid, startVideo),
+   UNIQUE KEY (bid, startVideo, startTime),
    FOREIGN KEY (bid) REFERENCES Bill(bid),
    FOREIGN KEY (hid) REFERENCES Hearing(hid),
    FOREIGN KEY (startVideo) REFERENCES Video(vid),
@@ -238,6 +239,7 @@ CREATE TABLE IF NOT EXISTS attends (
 ENGINE = INNODB
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
+-- examine (without endTime in UNIQUE, duplicate)
 CREATE TABLE IF NOT EXISTS Utterance (
    uid    INTEGER AUTO_INCREMENT,
    vid    INTEGER,
@@ -251,7 +253,7 @@ CREATE TABLE IF NOT EXISTS Utterance (
    alignment ENUM('For', 'Against', 'For_if_amend', 'Against_unless_amend', 'Neutral', 'Indeterminate'),
 
    PRIMARY KEY (uid, current),
-   UNIQUE KEY (vid, pid, current, time),
+   UNIQUE KEY (vid, pid, current, time, endTime),
    FOREIGN KEY (pid) REFERENCES Person(pid),
    FOREIGN KEY (vid) REFERENCES Video(vid)
 )
