@@ -8,10 +8,6 @@ INSERT INTO tester.Legislator(pid)
 SELECT pid
 FROM digitaldemocracy.Legislator;
 
-INSERT INTO tester.Lobbyist(pid)
-SELECT pid
-FROM digitaldemocracy.Lobbyist;
-
 INSERT INTO tester.Term(pid, year, district, house, party, start, end)
 SELECT pid, year, district, house, party, start, end
 FROM digitaldemocracy.Term;
@@ -20,9 +16,9 @@ INSERT INTO tester.Committee(cid, house, name)
 SELECT cid, house, name
 FROM digitaldemocracy.Committee;
 
-INSERT INTO tester.ServesOn(pid, year, district, house, cid)
+INSERT INTO tester.servesOn(pid, year, district, house, cid)
 SELECT pid, year, district, house, cid
-FROM digitaldemocracy.ServesOn;
+FROM digitaldemocracy.servesOn;
 
 INSERT INTO tester.Bill(bid, type, number, state, status, house, session)
 SELECT bid, type, number, state, status, house, session
@@ -72,11 +68,11 @@ INSERT INTO tester.attends(pid, hid)
 SELECT pid, hid
 FROM digitaldemocracy.attends;
 
--- currentUtterance
-
 INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, current, finalized, tpe, alignment)
 SELECT uid, vid, pid, time, endTime, text, current, finalized, tpe, alignment
 FROM digitaldemocracy.Utterance;
+
+CREATE OR REPLACE VIEW currentUtterance AS SELECT uid, vid, pid, time, endTime, text, type, alignment FROM Utterance WHERE current = TRUE AND finalized = TRUE ORDER BY time DESC;
 
 INSERT INTO tester.tag(tid, tag)
 SELECT tid, tag
@@ -101,7 +97,3 @@ FROM digitaldemocracy.TT_Task;
 INSERT INTO tester.TT_TaskCompletion(tcid, tid, completion)
 SELECT tcid, tid, completion
 FROM digitaldemocracy.TT_TaskCompletion;
-
-INSERT INTO tester.LobbyingFirm(filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr)
-SELECT FILER_ID, FILER_NAML, RPT_DATE, LS_BEG_YR, LS_END_YR
-FROM digitaldemocracy.LOOBYING_FIRMS;
