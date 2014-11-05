@@ -1,4 +1,4 @@
-USE digitaldemocracy;
+USE tester;
 
 INSERT INTO tester.Person(pid, last, first)
 SELECT pid, last, first
@@ -10,8 +10,7 @@ FROM digitaldemocracy.Legislator;
 
 INSERT INTO tester.Legislator(description)
 SELECT description
-FROM digitaldemocracy.Person
-WHERE digitaldemocracy.Person.pid = tester.Legislator.pid;
+FROM digitaldemocracy.Person;
 
 INSERT INTO tester.Term(pid, year, district, house, party, start, end)
 SELECT pid, year, district, house, party, start, end
@@ -50,7 +49,7 @@ SELECT vid, ttml
 FROM digitaldemocracy.Video_ttml;
 
 INSERT INTO tester.BillDiscussion(did, bid, hid, startVideo, startTime, endVideo, endTime, numVideos)
-SELECT bid, bid, hid, startVideo, startTime, endVideo, endTime, numVideos
+SELECT did, bid, hid, startVideo, startTime, endVideo, endTime, numVideos
 FROM digitaldemocracy.BillDiscussion;
 
 INSERT INTO tester.Motion(mid, bid, date, text)
