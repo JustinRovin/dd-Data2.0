@@ -4,13 +4,13 @@ INSERT INTO tester.Person(pid, last, first)
 SELECT pid, last, first
 FROM digitaldemocracy.Person;
 
-INSERT INTO tester.Legislator(pid)
-SELECT pid
-FROM digitaldemocracy.Legislator;
-
 INSERT INTO tester.Legislator(description)
 SELECT description
 FROM digitaldemocracy.Person;
+
+INSERT INTO tester.Legislator(pid)
+SELECT pid
+FROM digitaldemocracy.Legislator;
 
 INSERT INTO tester.Term(pid, year, district, house, party, start, end)
 SELECT pid, year, district, house, party, start, end
