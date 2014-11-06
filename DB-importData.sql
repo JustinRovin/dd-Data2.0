@@ -81,9 +81,10 @@ INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, type, alignment
 SELECT uid, vid, pid, time, endTime, text, type, alignment 
 FROM digitaldemocracy.currentUtterance;
 
-INSERT INTO tester.tag(tag)
-SELECT tag
-FROM digitaldemocracy.tag;
+INSERT INTO tester.tag(tid, tag)
+SELECT uid, tag
+FROM digitaldemocracy.tag
+ON DUPLICATE KEY UPDATE uid = uid + 1;
 
 INSERT INTO tester.Mention(uid, pid)
 SELECT uid, pid
