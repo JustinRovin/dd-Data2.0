@@ -9,7 +9,7 @@ SELECT pid
 FROM digitaldemocracy.Legislator;
 
 INSERT INTO tester.Legislator
-SELECT pid, description
+SELECT Legislator.pid, Person.description
 FROM digitaldemocracy.Person JOIN digitaldemocracy.Legislator
 WHERE Legislator.pid = Person.pid;
 
