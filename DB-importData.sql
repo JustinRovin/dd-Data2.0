@@ -4,10 +4,6 @@ INSERT INTO tester.Person(pid, last, first)
 SELECT pid, last, first
 FROM digitaldemocracy.Person;
 
-INSERT INTO tester.Legislator(pid)
-SELECT pid
-FROM digitaldemocracy.Legislator;
-
 INSERT INTO tester.Legislator
 SELECT Legislator.pid, Person.description
 FROM digitaldemocracy.Person JOIN digitaldemocracy.Legislator
