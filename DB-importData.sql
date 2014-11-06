@@ -4,14 +4,9 @@ INSERT INTO tester.Person(pid, last, first)
 SELECT pid, last, first
 FROM digitaldemocracy.Person;
 
-INSERT INTO tester.Legislator(pid)
-SELECT pid
-FROM digitaldemocracy.Legislator;
-
-INSERT INTO tester.Legislator(description)
-SELECT Person.description
-FROM digitaldemocracy
-WHERE Legislator.pid = Person.pid;
+INSERT INTO tester.Legislator
+SELECT pid, description
+FROM digitaldemocracy.Person;
 
 INSERT INTO tester.Term(pid, year, district, house, party, start, end)
 SELECT pid, year, district, house, party, start, end
@@ -94,6 +89,7 @@ INSERT INTO tester.TT_Editor(id, username, password, created, active, role)
 SELECT id, username, password, created, active, role
 FROM digitaldemocracy.TT_Editor;
 
+-- empty
 INSERT INTO tester.TT_Task(tid, did, editor_id, name, vid, startTime, endTime, created, assigned, completed)
 SELECT tid, did, editor_id, name, vid, startTime, endTime, created, assigned, completed
 FROM digitaldemocracy.TT_Task;
