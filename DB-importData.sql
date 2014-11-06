@@ -75,7 +75,12 @@ SELECT 'Utterance Issues' AS '';
 
 INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, type, alignment)
 SELECT uid, vid, pid, time, endTime, text, type, alignment 
-FROM digitaldemocracy.currentUtterance;
+FROM digitaldemocracy.currentUtterance
+WHERE NOT EXISTS (
+	SELECT 1 FROM tester.Utterance AS e
+	WHERE e.vid = vid 
+	AND e.pid = pid 
+	AND e.time = time);
 
 INSERT INTO tester.tag(tid, tag)
 SELECT uid, tag
