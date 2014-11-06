@@ -80,7 +80,7 @@ FROM digitaldemocracy.currentUtterance;
 INSERT INTO tester.tag(tid, tag)
 SELECT uid, tag
 FROM digitaldemocracy.tag
-ON DUPLICATE KEY UPDATE tid = tid + 1;
+ON DUPLICATE KEY UPDATE tid = tid + 2;
 
 INSERT INTO tester.Mention(uid, pid)
 SELECT uid, pid
