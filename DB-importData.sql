@@ -74,12 +74,12 @@ INSERT INTO tester.attends(pid, hid)
 SELECT pid, hid
 FROM digitaldemocracy.attends;
 
--- INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, type, alignment)
--- SELECT uid, vid, pid, time, endTime, text, type, alignment 
--- FROM digitaldemocracy.currentUtterance;
+INSERT INTO tester.Utterance(uid, vid, pid, time, endTime, text, type, alignment)
+SELECT uid, vid, pid, time, endTime, text, type, alignment 
+FROM digitaldemocracy.currentUtterance;
 
 INSERT INTO tester.tag(tid, tag)
-SELECT tid, tag
+SELECT uid, tag
 FROM digitaldemocracy.tag;
 
 INSERT INTO tester.Mention(uid, pid)
