@@ -107,3 +107,27 @@ FROM digitaldemocracy.TT_TaskCompletion;
 INSERT INTO tester.LobbyingFirm(filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr)
 SELECT filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr
 FROM digitaldemocracy.LOBBYING_FIRMS;
+
+INSERT INTO tester.General_Public(pid, employer)
+SELECT pid, employer
+FROM digitaldemocracy.JobSnapshot
+WHERE role = 'General_public';
+
+INSERT INTO tester.Analyst(pid)
+SELECT pid
+FROM digitaldemocracy.JobSnapshot
+WHERE role = 'Legislative_analyst';
+
+INSERT INTO tester.StateAgencyRep(pid, employer)
+SELECT pid, employer
+FROM digitaldemocracy.JobSnapshot
+WHERE role = 'State_agency_rep';
+
+INSERT INTO tester.General_Public(pid, employer)
+SELECT pid, employer
+FROM digitaldemocracy.JobSnapshot
+WHERE role = 'General_public';
+
+-- No Legislative Staff Committee
+-- No Legislative Staff Author
+
