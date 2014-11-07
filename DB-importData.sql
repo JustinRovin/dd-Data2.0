@@ -108,12 +108,10 @@ INSERT INTO tester.LobbyingFirm(filer_id, filer_naml, rpt_date, ls_beg_yr, ls_en
 SELECT filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr
 FROM digitaldemocracy.LOBBYING_FIRMS;
 
-INSERT INTO tester.GeneralPublic(pid, employer)
-SELECT o.pid, t.employer
-FROM (SELECT DISTINCT pid FROM Jobsnapshot) AS o
-JOIN JobSnapshot AS t
+(SELECT DISTINCT pid FROM JobSnapshot)
+UNION 
+(SELECT * FROM JobSnapshot)
 WHERE t.role = "General_public";
-
 
 INSERT INTO tester.Analyst(pid)
 SELECT DISTINCT pid
