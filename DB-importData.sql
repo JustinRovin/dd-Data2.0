@@ -109,13 +109,11 @@ SELECT filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr
 FROM digitaldemocracy.LOBBYING_FIRMS;
 
 INSERT INTO tester.GeneralPublic(pid, employer)
-SELECT pid
-FROM 
-(
-SELECT DISTINCT pid 
-FROM JobSnapshot
-WHERE role = 'General_public'
-);
+SELECT o.pid, t.employer
+FROM (SELECT DISTINCT pid FROM Jobsnapshot) AS o
+JOIN JobSnapshot AS t
+WHERE t.role = "General_public";
+
 
 INSERT INTO tester.Analyst(pid)
 SELECT DISTINCT pid
