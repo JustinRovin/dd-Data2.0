@@ -108,20 +108,24 @@ INSERT INTO tester.LobbyingFirm(filer_id, filer_naml, rpt_date, ls_beg_yr, ls_en
 SELECT filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr
 FROM digitaldemocracy.LOBBYING_FIRMS;
 
-(SELECT DISTINCT pid FROM JobSnapshot)
-UNION 
-(SELECT * FROM JobSnapshot)
-WHERE t.role = "General_public";
+INSERT INTO tester.GeneralPublic(pid, employer)
+SELECT pid, employer
+FROM digitaldemocracy.JobSnapshot
+WHERE role = 'General_public'
+ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;
+
 
 INSERT INTO tester.Analyst(pid)
 SELECT DISTINCT pid
 FROM digitaldemocracy.JobSnapshot
-WHERE role = 'Legislative_analyst';
+WHERE role = 'Legislative_analyst'
+ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;
 
 INSERT INTO tester.StateAgencyRep(pid, employer)
 SELECT DISTINCT pid, employer
 FROM digitaldemocracy.JobSnapshot
-WHERE role = 'State_agency_rep';
+WHERE role = 'State_agency_rep'
+ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;
 
 -- No Legislative Staff Committee
 -- No Legislative Staff Author
