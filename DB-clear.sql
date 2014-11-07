@@ -1,4 +1,4 @@
-USE DDDB;
+USE tester;
 SET foreign_key_checks = 0;
 
 DROP TABLE servesOn;

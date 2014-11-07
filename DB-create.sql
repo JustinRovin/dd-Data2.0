@@ -1,4 +1,4 @@
-USE DDDB;
+USE tester;
 
 CREATE TABLE IF NOT EXISTS Person (
    pid    INTEGER AUTO_INCREMENT,
