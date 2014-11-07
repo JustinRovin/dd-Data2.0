@@ -106,4 +106,4 @@ FROM digitaldemocracy.TT_TaskCompletion;
 
 INSERT INTO tester.LobbyingFirm(filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr)
 SELECT filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr
-FROM digitaldemocracy.LobbyingFirm
+FROM digitaldemocracy.LOBBYING_FIRMS;
