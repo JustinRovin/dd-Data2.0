@@ -103,3 +103,7 @@ FROM digitaldemocracy.TT_Task;
 INSERT INTO tester.TT_TaskCompletion(tcid, tid, completion)
 SELECT tcid, tid, completion
 FROM digitaldemocracy.TT_TaskCompletion;
+
+INSERT INTO tester.LobbyingFirm(filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr)
+SELECT filer_naml, filer_id, rpt_date, ls_beg_yr, ls_end_yr
+FROM digitaldemocracy.LobbyingFirm
