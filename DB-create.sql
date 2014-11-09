@@ -447,11 +447,11 @@ CREATE TABLE IF NOT EXISTS CommitteeStaff(
    house  ENUM('Assembly', 'Senate') NOT NULL,
    hid   INTEGER,							-- added
 
-   PRIMARY KEY (pid)                    -- added
+   PRIMARY KEY (pid, hid)                    -- added
 );
 
 CREATE TABLE IF NOT EXISTS Analyst(
-   pid INTEGER REFERENCES Person(pid),   -- added  
+   pid INTEGER REFERENCES Person(pid, hid),   -- added  
    hid   INTEGER,   					-- added
 
    PRIMARY KEY (pid)                    -- added
@@ -463,5 +463,5 @@ CREATE TABLE IF NOT EXISTS StateAgencyRep(
    position VARCHAR(100),   
    hid   INTEGER,						-- added
 
-   PRIMARY KEY (pid)                    -- added
+   PRIMARY KEY (pid, hid)                    -- added
 );
