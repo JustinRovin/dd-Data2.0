@@ -429,7 +429,7 @@ CREATE TABLE IF NOT EXISTS GeneralPublic(
    position VARCHAR(100),  
    hid   INTEGER,						-- added
 
-   PRIMARY KEY (pid)                    
+   PRIMARY KEY (pid, hid)                    
 );
 
 CREATE TABLE IF NOT EXISTS LegislativeAuthorStaff(
@@ -438,7 +438,7 @@ CREATE TABLE IF NOT EXISTS LegislativeAuthorStaff(
    position VARCHAR(100),
    hid   INTEGER,						-- added
 
-   PRIMARY KEY (pid)                    -- added
+   PRIMARY KEY (pid, hid)                    -- added
 );
 
 CREATE TABLE IF NOT EXISTS CommitteeStaff(
@@ -454,7 +454,7 @@ CREATE TABLE IF NOT EXISTS Analyst(
    pid INTEGER REFERENCES Person(pid, hid),   -- added  
    hid   INTEGER,   					-- added
 
-   PRIMARY KEY (pid)                    -- added
+   PRIMARY KEY (pid, hid)                    -- added
 );
 
 CREATE TABLE IF NOT EXISTS StateAgencyRep(

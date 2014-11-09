@@ -111,7 +111,8 @@ FROM digitaldemocracy.LOBBYING_FIRMS;
 INSERT INTO DDDB.GeneralPublic(pid, hid, employer)
 SELECT pid, hid, employer
 FROM digitaldemocracy.JobSnapshot
-WHERE role = 'General_public';
+WHERE role = 'General_public'
+ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;
 
 
 INSERT INTO DDDB.Analyst(pid)
@@ -123,7 +124,8 @@ ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;
 INSERT INTO DDDB.StateAgencyRep(pid, hid, employer)
 SELECT DISTINCT pid, hid, employer
 FROM digitaldemocracy.JobSnapshot
-WHERE role = 'State_agency_rep';
+WHERE role = 'State_agency_rep'
+ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;
 
 -- No Legislative Staff Committee
 -- No Legislative Staff Author
