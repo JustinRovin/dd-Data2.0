@@ -108,8 +108,8 @@ INSERT INTO DDDB.LobbyingFirm(filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_
 SELECT filer_id, filer_naml, rpt_date, ls_beg_yr, ls_end_yr
 FROM digitaldemocracy.LOBBYING_FIRMS;
 
-INSERT INTO DDDB.GeneralPublic(pid, employer)
-SELECT pid, employer
+INSERT INTO DDDB.GeneralPublic(pid, hid, employer)
+SELECT pid, hid, employer
 FROM digitaldemocracy.JobSnapshot
 WHERE role = 'General_public'
 ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;
@@ -121,8 +121,8 @@ FROM digitaldemocracy.JobSnapshot
 WHERE role = 'Legislative_analyst'
 ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;
 
-INSERT INTO DDDB.StateAgencyRep(pid, employer)
-SELECT DISTINCT pid, employer
+INSERT INTO DDDB.StateAgencyRep(pid, hid, employer)
+SELECT DISTINCT pid, hid, employer
 FROM digitaldemocracy.JobSnapshot
 WHERE role = 'State_agency_rep'
 ON DUPLICATE KEY UPDATE pid = JobSnapshot.pid;

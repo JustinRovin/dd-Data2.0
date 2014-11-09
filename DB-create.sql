@@ -426,7 +426,8 @@ CREATE TABLE IF NOT EXISTS LobbyistRepresentation(
 CREATE TABLE IF NOT EXISTS GeneralPublic(
    pid INTEGER REFERENCES Person(pid),   -- added
    employer VARCHAR(256),
-   position VARCHAR(100),                
+   position VARCHAR(100),  
+   hid   INTEGER,						-- added
 
    PRIMARY KEY (pid)                    
 );
@@ -434,7 +435,8 @@ CREATE TABLE IF NOT EXISTS GeneralPublic(
 CREATE TABLE IF NOT EXISTS LegislativeAuthorStaff(
    pid INTEGER REFERENCES Person(pid),   -- added
    legislator INTEGER REFERENCES Person(pid), -- this is the legislator 
-   position VARCHAR(100),                
+   position VARCHAR(100),
+   hid   INTEGER,						-- added
 
    PRIMARY KEY (pid)                    -- added
 );
@@ -442,13 +444,15 @@ CREATE TABLE IF NOT EXISTS LegislativeAuthorStaff(
 CREATE TABLE IF NOT EXISTS CommitteeStaff(
    pid INTEGER REFERENCES Person(pid),   -- added
    cid    INTEGER(3) REFERENCES Committee(cid),
-   house  ENUM('Assembly', 'Senate') NOT NULL,            
+   house  ENUM('Assembly', 'Senate') NOT NULL,
+   hid   INTEGER,							-- added
 
    PRIMARY KEY (pid)                    -- added
 );
 
 CREATE TABLE IF NOT EXISTS Analyst(
-   pid INTEGER REFERENCES Person(pid),   -- added            
+   pid INTEGER REFERENCES Person(pid),   -- added  
+   hid   INTEGER,   					-- added
 
    PRIMARY KEY (pid)                    -- added
 );
@@ -456,7 +460,8 @@ CREATE TABLE IF NOT EXISTS Analyst(
 CREATE TABLE IF NOT EXISTS StateAgencyRep(
    pid INTEGER REFERENCES Person(pid),   -- added
    employer VARCHAR(256),
-   position VARCHAR(100),               
+   position VARCHAR(100),   
+   hid   INTEGER,						-- added
 
    PRIMARY KEY (pid)                    -- added
 );
