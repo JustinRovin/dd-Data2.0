@@ -1,4 +1,4 @@
-USE DDDB;
+USE tester;
 
 CREATE TABLE IF NOT EXISTS Person (
    pid    INTEGER AUTO_INCREMENT,
@@ -381,6 +381,8 @@ CREATE TABLE IF NOT EXISTS LobbyistEmployer(
    coalition TINYINT(1)
 );
 
+-- LOBBYIST_EMPLOYED_BY_LOBBYING_FIRM
+
 CREATE TABLE IF NOT EXISTS LobbyistEmployment(
    pid INT  REFERENCES  Lobbyist(pid),                         -- modified (FK)
    sender_id VARCHAR(9) REFERENCES LobbyingFirm(filer_id), -- modified (FK)
@@ -393,6 +395,7 @@ CREATE TABLE IF NOT EXISTS LobbyistEmployment(
 -- NEW TABLE: Lobbyist Employed Directly by Lobbyist Employers 
 -- Structure same as LOBBYIST_EMPLOYED_BY_LOBBYING_FIRM, 
 -- but the SENDER_ID is a Foreign Key onto LOBBYIST_EMPLOYER
+--  LOBBYIST_EMPLOYED_BY_LOBBYIST_EMPLOYER
 
 CREATE TABLE IF NOT EXISTS LobbyistDirectEmployment(
    pid INT  REFERENCES  Lobbyist(pid),                         
