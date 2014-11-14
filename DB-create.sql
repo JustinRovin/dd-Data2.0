@@ -454,7 +454,7 @@ CREATE TABLE IF NOT EXISTS CommitteeStaff(
 );
 
 CREATE TABLE IF NOT EXISTS Analyst(
-   pid INTEGER REFERENCES Person(pid, hid),   -- added  
+   pid INTEGER REFERENCES Person(pid),   -- added  
    hid   INTEGER,   					-- added
 
    PRIMARY KEY (pid, hid)                    -- added
