@@ -368,12 +368,11 @@ CREATE TABLE IF NOT EXISTS LobbyingFirm(
 
 --  ALTER TABLE !!!!!
 CREATE TABLE IF NOT EXISTS Lobbyist(
-   pid INTEGER,   -- added
+   pid INTEGER REFERENCES Person(pid),   -- added
    -- FILER_NAML VARCHAR(50),               modified, needs to be same as Person.last
    -- FILER_NAMF VARCHAR(50),               modified, needs to be same as Person.first  
    filer_id VARCHAR(9) UNIQUE,         -- modified   
-   PRIMARY KEY (pid),                    -- added
-   FOREIGN KEY (pid) REFERENCES Person(pid)
+   PRIMARY KEY (pid)                    -- added
 );
 
 CREATE TABLE IF NOT EXISTS LobbyistEmployer(
@@ -386,12 +385,11 @@ CREATE TABLE IF NOT EXISTS LobbyistEmployer(
 
 CREATE TABLE IF NOT EXISTS LobbyistEmployment(
    pid INT  REFERENCES  Lobbyist(pid),                         -- modified (FK)
-   sender_id VARCHAR(9), -- modified (FK)
+   sender_id VARCHAR(9) REFERENCES LobbyingFirm(filer_id), -- modified (FK)
    rpt_date DATE,
    ls_beg_yr INTEGER,    -- modified (INT)
    ls_end_yr INTEGER,    -- modified (INT)
-   PRIMARY KEY (pid, sender_id, rpt_date, ls_end_yr), -- modified (May 21)
-   FOREIGN KEY (sender_id) REFERENCES LobbyingFirm(filer_id)
+   PRIMARY KEY (pid, sender_id, rpt_date, ls_end_yr) -- modified (May 21) 
 );
 
 -- NEW TABLE: Lobbyist Employed Directly by Lobbyist Employers 
@@ -401,12 +399,11 @@ CREATE TABLE IF NOT EXISTS LobbyistEmployment(
 
 CREATE TABLE IF NOT EXISTS LobbyistDirectEmployment(
    pid INT  REFERENCES  Lobbyist(pid),                         
-   sender_id VARCHAR(9),
+   sender_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id),
    rpt_date DATE,
    ls_beg_yr INTEGER,    -- modified (INT)
    ls_end_yr INTEGER,     -- modified (INT)
-   PRIMARY KEY (pid, sender_id, rpt_date, ls_end_yr), -- modified (May 21)
-   FOREIGN KEY (sender_id) REFERENCES LobbyingFirm(filer_id)   
+   PRIMARY KEY (pid, sender_id, rpt_date, ls_end_yr) -- modified (May 21) 
 );
 
 -- end new table
@@ -418,67 +415,56 @@ CREATE TABLE IF NOT EXISTS LobbyingContracts(
    rpt_date DATE,
    ls_beg_yr INTEGER,    -- modified (INT)
    ls_end_yr INTEGER,     -- modified (INT)
-   PRIMARY KEY (filer_id, sender_id, rpt_date), -- modified (May 21) 
-   FOREIGN KEY (filer_id) REFERENCES LobbyingFirm(filer_id),
-   FOREIGN KEY (sender_id) REFERENCES LobbyistEmployer(filer_id)
+   PRIMARY KEY (filer_id, sender_id, rpt_date) -- modified (May 21) 
 );
 
 CREATE TABLE IF NOT EXISTS LobbyistRepresentation(
-   pid INTEGER,                  -- modified
-   le_id VARCHAR(9), -- modified (renamed)
+   pid INTEGER REFERENCES Lobbyist(pid),                  -- modified
+   le_id VARCHAR(9) REFERENCES LobbyistEmployer(filer_id), -- modified (renamed)
    hearing_date DATE,                                       -- modified (renamed)
    hearing_id INTEGER REFERENCES Hearing(hid),              -- added
-   PRIMARY KEY(pid, le_id, hearing_id),                 -- added
-   FOREIGN KEY (pid) REFERENCES Lobbyist(pid),
-   FOREIGN KEY (le_id) REFERENCES LobbyistEmployer(filer_id)
+   PRIMARY KEY(pid, le_id, hearing_id)                 -- added
 );
 
 CREATE TABLE IF NOT EXISTS GeneralPublic(
-   pid INTEGER,   -- added
+   pid INTEGER REFERENCES Person(pid),   -- added
    employer VARCHAR(256),
    position VARCHAR(100),  
    hid   INTEGER,						-- added
 
-   PRIMARY KEY (pid, hid),
-   FOREIGN KEY (pid) REFERENCES Person(pid)
+   PRIMARY KEY (pid, hid)                    
 );
 
 CREATE TABLE IF NOT EXISTS LegislativeAuthorStaff(
-   pid INTEGER,   -- added
-   legislator INTEGER, -- this is the legislator 
+   pid INTEGER REFERENCES Person(pid),   -- added
+   legislator INTEGER REFERENCES Person(pid), -- this is the legislator 
    position VARCHAR(100),
    hid   INTEGER,						-- added
 
-   PRIMARY KEY (pid, hid),                    -- added
-   FOREIGN KEY (pid) REFERENCES Person(pid),
-   FOREIGN KEY (legislator) REFERENCES Person(pid)
+   PRIMARY KEY (pid, hid)                    -- added
 );
 
 CREATE TABLE IF NOT EXISTS CommitteeStaff(
-   pid INTEGER,   -- added
-   cid    INTEGER(3),
+   pid INTEGER REFERENCES Person(pid),   -- added
+   cid    INTEGER(3) REFERENCES Committee(cid),
    house  ENUM('Assembly', 'Senate') NOT NULL,
    hid   INTEGER,							-- added
 
    PRIMARY KEY (pid, hid)                    -- added
-   FOREIGN KEY (cid) REFERENCES Committee(cid),
-   FOREIGN KEY (pid) REFERENCES Person(pid)
 );
 
 CREATE TABLE IF NOT EXISTS Analyst(
    pid INTEGER REFERENCES Person(pid),   -- added  
    hid   INTEGER,   					-- added
 
-   PRIMARY KEY (pid, hid),                    -- added
-   FOREIGN KEY (pid) REFERENCES Person(pid)
+   PRIMARY KEY (pid, hid)                    -- added
 );
 
 CREATE TABLE IF NOT EXISTS StateAgencyRep(
-   pid INTEGER,   -- added
+   pid INTEGER REFERENCES Person(pid),   -- added
    employer VARCHAR(256),
    position VARCHAR(100),   
    hid   INTEGER,						-- added
 
    PRIMARY KEY (pid, hid)                    -- added
-   FOREIGN KEY (pid) REFERENCES Person(pid)
 );
